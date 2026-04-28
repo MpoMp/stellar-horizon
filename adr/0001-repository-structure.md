@@ -17,4 +17,3 @@ We will organize the repository using the following structure:
 - Any contributor will have a clear place to look for architectural decisions.
 - The project structure remains organised and scalable. 
 - AI agents can leverage the ADRs to understand the project's architecture.
-- 
