@@ -7,7 +7,7 @@ Accepted
 The project needs a clear and documented directory structure to ensure consistency as it grows. 
 
 ## Decision
-We will organize the repository using the following structure:
+We will organise the repository using the following structure:
 
 - `adr/`: Contains Architectural Decision Records (ADRs) to document key technical decisions.
 - Each sub-project to follow will exist in its own root directory. 
