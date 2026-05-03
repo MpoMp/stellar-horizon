@@ -1,0 +1,25 @@
+services:
+  main-database:
+    image: postgres:18.3
+    restart: no
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    environment:
+      # gotta append _FILE to make it work by reading the file itself
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-root-pw
+      POSTGRES_USER: mikalaras
+      POSTGRES_DB: stellar-db
+    secrets:
+      - db-root-pw
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql
+
+volumes:
+  db-data:
+    name: stellar-db-data
+
+secrets:
+  db-root-pw:
+    file: ./database/dbrootpw.txt
