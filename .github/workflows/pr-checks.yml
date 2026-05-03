@@ -1,4 +1,4 @@
-name: Pull Request Health Checks
+name: PR Health Checks
   
 on: 
   pull_request:
@@ -7,10 +7,15 @@ on:
 
 jobs:
  docker-compose-healthcheck:
-   name: Docker Compose Healthcheck
+   name: Docker Deployment Check
    runs-on: ubuntu-24.04
    steps:
+     # bring in the code
      - uses: actions/checkout@v6.0.2
+     # create the password files
+     - run: echo "asdgbtrh#%^3435" > ./database/dbrootpw.txt
+     - run: echo "sdag4353g25tg5!" > ./rabbitmq/adminpw.txt
+     # docker compose and healtcheck
      - uses: hoverkraft-tech/compose-action@v2.6.0
        with: 
          compose-file: ./compose.yaml
