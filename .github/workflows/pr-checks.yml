@@ -19,5 +19,5 @@ jobs:
      - uses: hoverkraft-tech/compose-action@v2.6.0
        with: 
          compose-file: ./compose.yaml
-     - run: docker inspect stellar-rmq | grep Status
+     - run: docker inspect stellar-rmq | grep -q "Statusar"
  
