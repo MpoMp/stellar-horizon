@@ -8,16 +8,23 @@ on:
 jobs:
  docker-compose-healthcheck:
    name: Docker Deployment Check
-   runs-on: ubuntu-24.04
+   runs-on: ubuntu-latest
    steps:
      # bring in the code
      - uses: actions/checkout@v6.0.2
      # create the password files
-     - run: echo "asdgbtrh#%^3435" > ./database/dbrootpw.txt
-     - run: echo "sdag4353g25tg5!" > ./rabbitmq/adminpw.txt
+     - run: |
+         echo "asdgbtrh#%^3435" > ./database/dbrootpw.txt
+         echo "sdag4353g25tg5!" > ./rabbitmq/adminpw.txt
+       name: Password generation
      # docker compose and healtcheck
      - uses: hoverkraft-tech/compose-action@v2.6.0
        with: 
          compose-file: ./compose.yaml
-     - run: docker inspect stellar-rmq | grep -q "Statusar"
+     - run: |
+         docker inspect stellar-rmq | grep -q "\"Status\": \"running\""
+       name: RabbitMQ is up
+     - run: | 
+         docker inspect stellar-db | grep -q "\"Status\": \"running\""
+       name: Database is up
  
