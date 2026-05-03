@@ -1,4 +1,4 @@
-name: pr-checks
+name: Pull Request Health Checks
   
 on: 
   pull_request:
@@ -7,10 +7,12 @@ on:
 
 jobs:
  docker-compose-healthcheck:
+   name: Docker Compose Healthcheck
    runs-on: ubuntu-24.04
    steps:
+     - uses: actions/checkout@v6.0.2
      - uses: hoverkraft-tech/compose-action@v2.6.0
        with: 
-         compose-file: "./compose.yaml"
-     - run: "docker inspect stellar-rmq | grep Status"
+         compose-file: ./compose.yaml
+     - run: docker inspect stellar-rmq | grep Status
  
