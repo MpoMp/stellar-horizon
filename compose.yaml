@@ -15,10 +15,24 @@ services:
       - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql
+  main-rabbit:
+    image: rabbitmq:4.3.0
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    #hostname: main-rabbit
+    ports:
+      - 5672:5672
+    volumes:
+      - rmq-data:/var/lib/rabbitmq
+      - rmq-config:/etc/rabbitmq
 
 volumes:
   db-data:
     name: stellar-db-data
+  rmq-data:
+    name: stellar-rmq-volume
+  rmq-config:
+    name: stellar-rmq-config
 
 secrets:
   db-root-pw:
