@@ -1,0 +1,16 @@
+name: pr-checks
+  
+on: 
+  pull_request:
+    branches:
+      - master
+
+jobs:
+ docker-compose-healthcheck:
+   runs-on: ubuntu-24.04
+   steps:
+     - uses: hoverkraft-tech/compose-action@v2.6.0
+       with: 
+         compose-file: ./compose.yml
+     - run: "docker inspect stellar-rmq | grep Status"
+ 
