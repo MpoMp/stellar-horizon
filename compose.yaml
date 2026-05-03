@@ -1,5 +1,6 @@
 services:
   main-database:
+    container_name: stellar-db
     image: postgres:18.3
     restart: no
     # set shared memory limit when using docker compose
@@ -15,7 +16,9 @@ services:
       - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql
-  main-rabbit:
+  main-rabbitmq:
+    container_name: stellar-rmq
+    restart: no
     image: rabbitmq:4.3.0
     # set shared memory limit when using docker compose
     shm_size: 128mb
@@ -30,7 +33,7 @@ volumes:
   db-data:
     name: stellar-db-data
   rmq-data:
-    name: stellar-rmq-volume
+    name: stellar-rmq-data
   rmq-config:
     name: stellar-rmq-config
 
