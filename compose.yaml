@@ -29,6 +29,44 @@ services:
       - rmq-data:/var/lib/rabbitmq
       - rmq-config:/etc/rabbitmq
 
+  backofficer:
+    build:
+      context: ./backofficer
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    container_name: stellar-backofficer
+    restart: no
+    shm_size: 128mb
+    ports:
+      - 8100:8100
+    depends_on:
+      - main-database
+
+  matching-engine:
+    build:
+      context: ./matching-engine
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    container_name: stellar-engine
+    restart: no
+    shm_size: 128mb
+#    ports:
+#      - 8200:8200
+    depends_on:
+      - main-database
+      - main-rabbitmq
+
+  order-gateway:
+    build:
+      context: ./order-gateway
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    container_name: stellar-gateway
+    restart: no
+    shm_size: 128mb
+#    ports:
+#      - 8300:8300
+    depends_on:
+      - main-database
+      - main-rabbitmq
+
 volumes:
   db-data:
     name: stellar-db-data
