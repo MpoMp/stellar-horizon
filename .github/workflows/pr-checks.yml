@@ -23,10 +23,11 @@ jobs:
          java-version: '25.0.3'
          distribution: 'temurin'
          cache: maven
+     # package with less logging and a snapshot update on the first run
      - run: |
-         mvn package -f ./backofficer -Dmaven.test.skip
-         mvn package -f ./matching-engine -Dmaven.test.skip
-         mvn package -f ./order-gateway -Dmaven.test.skip
+         mvn package --batch-mode --update-snapshots -f ./backofficer -Dmaven.test.skip
+         mvn package --batch-mode -f ./matching-engine -Dmaven.test.skip
+         mvn package --batch-mode -f ./order-gateway -Dmaven.test.skip
        name: Quarkus app packaging
      # docker compose and health check
      - uses: hoverkraft-tech/compose-action@v2.6.0
